@@ -1,0 +1,45 @@
+data-sources:
+  - name: data-base-1
+    strategy: postgres
+    url: ${data-sources.url.postgres1}
+    table: users
+    user: testuser
+    password: testpass
+    mapping:
+      id: user_id
+      username: login
+      name: first_name
+      surname: last_name
+  - name: data-base-2
+    strategy: postgres
+    url: ${data-sources.url.postgres2}
+    table: user_table
+    user: testuser
+    password: testpass
+    mapping:
+      id: ldap_login
+      username: ldap_login
+      name: name
+      surname: surname
+  - name: database
+    strategy: oracle
+    url: ${data-sources.url.oracle}
+    table: test_table
+    user: testuser
+    password: testpass
+    mapping:
+      id: id
+      username: username
+      name: name
+      surname: surname
+  - name: data-base-4
+    strategy: mysql
+    url: ${data-sources.url.mysql}
+    table: test_table
+    user: testuser-4
+    password: testpass-4
+    mapping:
+      id: id
+      username: username
+      name: name
+      surname: surname

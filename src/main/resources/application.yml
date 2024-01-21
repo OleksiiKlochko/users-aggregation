@@ -1,0 +1,6 @@
+spring:
+  mvc:
+    problemdetails:
+      enabled: true
+
+data-sources:
