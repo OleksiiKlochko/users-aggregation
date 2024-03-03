@@ -1,7 +1,7 @@
 package users.aggregation.service;
 
+import org.openapitools.model.User;
 import org.springframework.stereotype.Service;
-import users.aggregation.data.User;
 import users.aggregation.repository.UserRepository;
 
 import java.util.List;

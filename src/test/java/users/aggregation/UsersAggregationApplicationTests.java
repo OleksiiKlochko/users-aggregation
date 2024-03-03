@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.openapitools.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,7 +18,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.oracle.OracleContainer;
 import org.testcontainers.utility.DockerImageName;
-import users.aggregation.data.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,30 +74,26 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactlyInAnyOrder(
-                new User.Builder()
+                new User()
                         .id("example-user-id-1")
                         .username("user-1")
                         .name("User")
-                        .surname("Userenko")
-                        .build(),
-                new User.Builder()
+                        .surname("Userenko"),
+                new User()
                         .id("example-user-id-2")
                         .username("example-user-id-2")
                         .name("Testuser")
-                        .surname("Testov")
-                        .build(),
-                new User.Builder()
+                        .surname("Testov"),
+                new User()
                         .id("example-user-id-3")
                         .username("user-3")
                         .name("John")
-                        .surname("Smith")
-                        .build(),
-                new User.Builder()
+                        .surname("Smith"),
+                new User()
                         .id("example-user-id-4")
                         .username("user-4")
                         .name("John")
                         .surname("Doe")
-                        .build()
         );
     }
 
@@ -110,18 +106,16 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactlyInAnyOrder(
-                new User.Builder()
+                new User()
                         .id("example-user-id-1")
                         .username("user-1")
                         .name("User")
-                        .surname("Userenko")
-                        .build(),
-                new User.Builder()
+                        .surname("Userenko"),
+                new User()
                         .id("example-user-id-3")
                         .username("user-3")
                         .name("John")
                         .surname("Smith")
-                        .build()
         );
     }
 
@@ -134,18 +128,16 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactlyInAnyOrder(
-                new User.Builder()
+                new User()
                         .id("example-user-id-3")
                         .username("user-3")
                         .name("John")
-                        .surname("Smith")
-                        .build(),
-                new User.Builder()
+                        .surname("Smith"),
+                new User()
                         .id("example-user-id-4")
                         .username("user-4")
                         .name("John")
                         .surname("Doe")
-                        .build()
         );
     }
 
@@ -158,24 +150,21 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactlyInAnyOrder(
-                new User.Builder()
+                new User()
                         .id("example-user-id-1")
                         .username("user-1")
                         .name("User")
-                        .surname("Userenko")
-                        .build(),
-                new User.Builder()
+                        .surname("Userenko"),
+                new User()
                         .id("example-user-id-3")
                         .username("user-3")
                         .name("John")
-                        .surname("Smith")
-                        .build(),
-                new User.Builder()
+                        .surname("Smith"),
+                new User()
                         .id("example-user-id-4")
                         .username("user-4")
                         .name("John")
                         .surname("Doe")
-                        .build()
         );
     }
 
@@ -188,18 +177,16 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactlyInAnyOrder(
-                new User.Builder()
+                new User()
                         .id("example-user-id-2")
                         .username("example-user-id-2")
                         .name("Testuser")
-                        .surname("Testov")
-                        .build(),
-                new User.Builder()
+                        .surname("Testov"),
+                new User()
                         .id("example-user-id-4")
                         .username("user-4")
                         .name("John")
                         .surname("Doe")
-                        .build()
         );
     }
 
@@ -212,12 +199,11 @@ class UsersAggregationApplicationTests {
 
         assertThat(users.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(users.getBody()).containsExactly(
-                new User.Builder()
+                new User()
                         .id("example-user-id-3")
                         .username("user-3")
                         .name("John")
                         .surname("Smith")
-                        .build()
         );
     }
 

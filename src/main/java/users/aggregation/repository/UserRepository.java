@@ -1,11 +1,11 @@
 package users.aggregation.repository;
 
+import org.openapitools.model.User;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.util.CollectionUtils;
 import users.aggregation.configuration.DataSourceMapping;
-import users.aggregation.data.User;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -20,12 +20,11 @@ public class UserRepository {
         this.dataSourceMapping = dataSourceMapping;
 
         userRowMapper = (resultSet, rowNum) ->
-                new User.Builder()
+                new User()
                         .id(resultSet.getString(dataSourceMapping.id()))
                         .username(resultSet.getString(dataSourceMapping.username()))
                         .name(resultSet.getString(dataSourceMapping.name()))
-                        .surname(resultSet.getString(dataSourceMapping.surname()))
-                        .build();
+                        .surname(resultSet.getString(dataSourceMapping.surname()));
     }
 
     public Stream<User> findUsers(List<String> ids, List<String> usernames, List<String> names, List<String> surnames) {

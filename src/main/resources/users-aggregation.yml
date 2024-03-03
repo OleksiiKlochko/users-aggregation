@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: Users Aggregation Service
+  description: Service for aggregating users data from multiple databases
+  version: 0.0.1
+paths:
+  /users:
+    get:
+      summary: Get aggregated users from all databases
+      operationId: getUsers
+      parameters:
+        - name: ids
+          in: query
+          description: IDs of users to be searched
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: usernames
+          in: query
+          description: Usernames of users to be searched
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: names
+          in: query
+          description: Names of users to be searched
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: surnames
+          in: query
+          description: Surnames of users to be searched
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        200:
+          description: Found users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        400:
+          description: Request parameters are empty
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
