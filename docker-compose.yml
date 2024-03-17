@@ -1,0 +1,11 @@
+services:
+  postgres1:
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: data-base-1
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker-volumes/postgres-1:/docker-entrypoint-initdb.d
