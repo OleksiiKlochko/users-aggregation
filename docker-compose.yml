@@ -1,6 +1,6 @@
 services:
   postgres1:
-    image: postgres:16.3
+    image: postgres:16.7
     environment:
       POSTGRES_DB: data-base-1
       POSTGRES_USER: testuser
