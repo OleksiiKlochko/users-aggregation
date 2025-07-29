@@ -17,35 +17,34 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.oracle.OracleContainer;
-import org.testcontainers.utility.DockerImageName;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 class UsersAggregationApplicationTests {
 
     @Container
-    private static final PostgreSQLContainer<?> postgres1 = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.2"))
+    private static final PostgreSQLContainer<?> postgres1 = new PostgreSQLContainer<>("postgres:17.5")
             .withDatabaseName("data-base-1")
             .withUsername("testuser")
             .withPassword("testpass")
             .withInitScript("scripts/postgres-1.sql");
 
     @Container
-    private static final PostgreSQLContainer<?> postgres2 = new PostgreSQLContainer<>(DockerImageName.parse("postgres:16.2"))
+    private static final PostgreSQLContainer<?> postgres2 = new PostgreSQLContainer<>("postgres:17.5")
             .withDatabaseName("data-base-2")
             .withUsername("testuser")
             .withPassword("testpass")
             .withInitScript("scripts/postgres-2.sql");
 
     @Container
-    private static final OracleContainer oracle = new OracleContainer(DockerImageName.parse("gvenzl/oracle-free:23.3"))
+    private static final OracleContainer oracle = new OracleContainer("gvenzl/oracle-free:23.3")
             .withDatabaseName("database")
             .withUsername("testuser")
             .withPassword("testpass")
             .withInitScript("scripts/oracle.sql");
 
     @Container
-    private static final MySQLContainer<?> mySQL = new MySQLContainer<>(DockerImageName.parse("mysql:8.3.0"))
+    private static final MySQLContainer<?> mySQL = new MySQLContainer<>("mysql:8.3.0")
             .withDatabaseName("data-base-4")
             .withUsername("testuser-4")
             .withPassword("testpass-4")
@@ -96,7 +95,12 @@ class UsersAggregationApplicationTests {
     @DisplayName("GET status 200 and list of users filtered by IDs")
     @Test
     void usersFilterByIds() {
-        webTestClient.get().uri("/users?ids=example-user-id-1,example-user-id-3")
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/users")
+                        .queryParam("ids", "example-user-id-1", "example-user-id-3")
+                        .build()
+                )
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -117,7 +121,12 @@ class UsersAggregationApplicationTests {
     @DisplayName("GET status 200 and list of users filtered by usernames")
     @Test
     void usersFilterByUsernames() {
-        webTestClient.get().uri("/users?usernames=user-3,user-4")
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/users")
+                        .queryParam("usernames", "user-3", "user-4")
+                        .build()
+                )
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -138,7 +147,12 @@ class UsersAggregationApplicationTests {
     @DisplayName("GET status 200 and list of users filtered by names")
     @Test
     void usersFilterByNames() {
-        webTestClient.get().uri("/users?names=User,John")
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/users")
+                        .queryParam("names", "User", "John")
+                        .build()
+                )
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -164,7 +178,12 @@ class UsersAggregationApplicationTests {
     @DisplayName("GET status 200 and list of users filtered by surnames")
     @Test
     void usersFilterBySurnames() {
-        webTestClient.get().uri("/users?surnames=Testov,Doe")
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/users")
+                        .queryParam("surnames", "Testov", "Doe")
+                        .build()
+                )
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -185,7 +204,15 @@ class UsersAggregationApplicationTests {
     @DisplayName("GET status 200 and list of users filtered by IDs, usernames, names, and surnames")
     @Test
     void usersFilterByAllParameters() {
-        webTestClient.get().uri("/users?ids=example-user-id-3&usernames=user-3&names=John&surnames=Smith")
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/users")
+                        .queryParam("ids", "example-user-id-3")
+                        .queryParam("usernames", "user-3")
+                        .queryParam("names", "John")
+                        .queryParam("surnames", "Smith")
+                        .build()
+                )
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
